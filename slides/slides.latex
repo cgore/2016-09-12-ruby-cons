@@ -84,8 +84,7 @@
 \definecolor{cexcolor}{rgb}{0.25,0.25,0.4}
 \lstset{
   basicstyle=\ttfamily,
-  language=TeX,
-  morekeywords={make-instance},
+  language=Ruby,
   escapeinside={\%*}{*)},
   commentstyle=\itshape\color{commentcolor},
   identifierstyle=\color{identifiercolor},
@@ -201,6 +200,23 @@
   \item[] . \setcounter{enumi}{998}
   \item Java
   \end{enumerate}
+\end{slide}
+
+
+\begin{slide}
+  \h{Nearly every programming language has a way to do a list of things.}
+\end{slide}
+
+\begin{slide}
+  \h{Ruby has arrays.}
+
+\begin{lstlisting}
+a = [1,2,3,4,5]
+a.class # Array
+a.length # 5
+a.first # 1
+a.map {|ai| ai*2} # [2,4,6,8,10]
+\end{lstlisting}
 \end{slide}
 
 
