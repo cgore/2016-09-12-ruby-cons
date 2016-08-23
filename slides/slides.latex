@@ -192,7 +192,7 @@
 
 
   \begin{enumerate}
-  \item My language, Teepee, eventually \textit{(but not yet)}
+  \item My own super-awesome programming language, Teepee \textit{(but it's not that awesome just yet)}
   \item Common Lisp
   \item Ruby
   \item[] .
@@ -205,6 +205,8 @@
 
 \begin{slide}
   \h{Nearly every programming language has some way to do things to a list/array/vector/whatever of things.}
+
+  \fullSlideImage{to-do-list.eps}
 \end{slide}
 
 \begin{slide}
@@ -215,7 +217,7 @@ a = [1,2,3,4,5]
 a.class # Array
 a.length # 5
 a.first # 1
-a.map {|ai| ai*2} # [2,4,6,8,10]
+a.map {|i| i*2} # [2,4,6,8,10]
 \end{lstlisting}
 \end{slide}
 
@@ -244,6 +246,20 @@ a.map {|ai| ai*2} # [2,4,6,8,10]
 (elt v 0) ; 1
 (map 'vector (lambda (i) (* 2 i)) v)
 ;; #(2 4 6 8 10)
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{And I'm adding a really nice Cons gem!}
+
+\begin{lstlisting}
+require 'cons'
+c = [1,2,3,4,5].to_cons
+c.class # Cons
+c.length # 5
+c.first # 1
+c.map {|i| i*2} # Cons.list 2,4,6,8,10
 \end{lstlisting}
 \end{slide}
 
