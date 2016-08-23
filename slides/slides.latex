@@ -38,7 +38,6 @@
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
-\usepackage[normalem]{ulem}
 \usepackage{graphicx}
 \usepackage[usenames,dvipsnames]{xcolor}
 \usepackage{librebaskerville} % Baskerville font
@@ -150,6 +149,12 @@
   \end{tabular}
 }
 
+\def\dout{\bgroup
+ \markoverwith{\lower-0.2ex\hbox
+ {\kern-.03em\vbox{\hrule width.2em\kern0.45ex\hrule}\kern-.03em}}%
+ \ULon}
+\MakeRobust\dout
+
 \newpagestyle{cgore}{}{Chris Gore\hfil\thepage\hfil\texttt{cgore.com}}
 \pagestyle{cgore}
 
@@ -181,6 +186,22 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{slide}
+  \h{Ruby is my \dout{most} \dout{second} third favorite programming language of all time.}
+
+
+  \begin{enumerate}
+  \item My language, Teepee, eventually \textit{(but not yet)}
+  \item Common Lisp
+  \item Ruby
+  \item[] .
+  \item[] .
+  \item[] . \setcounter{enumi}{998}
+  \item Java
+  \end{enumerate}
+\end{slide}
 
 
 \begin{slide}
