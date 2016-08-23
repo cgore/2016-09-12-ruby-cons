@@ -204,7 +204,7 @@
 
 
 \begin{slide}
-  \h{Nearly every programming language has a way to do a list of things.}
+  \h{Nearly every programming language has some way to do things to a list/array/vector/whatever of things.}
 \end{slide}
 
 \begin{slide}
@@ -228,7 +228,22 @@ a.map {|ai| ai*2} # [2,4,6,8,10]
 (class-of a) ; #<BUILT-IN-CLASS COMMON-LISP:CONS>
 (length a) ; 5
 (first a) ; 1
-(mapcar (lambda (ai) (* 2 ai)) a) ; '(2 4 6 8 10)  
+(mapcar (lambda (i) (* 2 i)) a) ; '(2 4 6 8 10)  
+\end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{But Common Lisp also has vectors, which are basically the same as Ruby arrays.}
+
+\begin{lstlisting}[language=Lisp]
+(let v (vector 1 2 3 4 5))
+(class-of v)
+;; #<BUILT-IN-CLASS COMMON-LISP:SIMPLE-VECTOR>
+(length v) ; 5
+(elt v 0) ; 1
+(map 'vector (lambda (i) (* 2 i)) v)
+;; #(2 4 6 8 10)
 \end{lstlisting}
 \end{slide}
 
