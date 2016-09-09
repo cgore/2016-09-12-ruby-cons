@@ -295,6 +295,13 @@ end
 
 
 \begin{slide}
+  \h{Well, they don't work like that at all in Lisp.}
+
+  \fullSlideImage{mccarthy.eps}
+\end{slide}
+
+
+\begin{slide}
   \SlideSection{Questions?}
 \end{slide}
 
