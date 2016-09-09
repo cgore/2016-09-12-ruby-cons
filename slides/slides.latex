@@ -54,14 +54,9 @@
 \usepackage{pifont}
 \usepackage{tikz}
 
-\usetikzlibrary{positioning,shapes,shadows,arrows}
-\tikzstyle{module}=[draw,fill=white]
-\tikzstyle{class}=[module, drop shadow]
-\tikzstyle{detailedClass}=[class, rectangle split, rectangle split parts=2]
-\tikzstyle{instance}=[draw,ellipse,fill=white,text=blue]
-\tikzstyle{subclass}=[-open triangle 60, thick]
-\tikzstyle{mixin}=[-open triangle 60, dashed]
-\tikzstyle{instanceOf}=[->, thick]
+\usetikzlibrary{chains,matrix,positioning,shapes,shadows,arrows,arrows.meta}
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{roundangle} = [rectangle, rounded corners, text centered, draw=black, fill=blue!10]
 
 \usepackage{semcolor,slidesec}
 \input{seminar.bug}
@@ -261,6 +256,41 @@ c.length # 5
 c.first # 1
 c.map {|i| i*2} # Cons.list 2,4,6,8,10
 \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Remember linked lists?}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix [
+        row sep = 1em,
+        column sep = 3.5em
+      ] {
+        \node (a) [roundangle] {Oranges}; &
+        \node (b) [roundangle] {Apples}; &
+        \node (c) [roundangle] {Bananas}; &
+        \node (d) {...}; \\
+      };
+      \draw [arrow] (a) -- node[above] {next} (b);
+      \draw [arrow] (b) -- node[above] {next} (c);
+      \draw [arrow] (c) -- node[above] {next} (d);
+    \end{tikzpicture}
+  \end{center}
+
+  We can do this something like this in Ruby:
+
+  \begin{lstlisting}
+class LinkedList
+  attr_accessor :data, :next
+  def initialize data, next
+    @data, @next = data, next
+    ...
+  end
+  ...
+end
+  \end{lstlisting}
 \end{slide}
 
 
