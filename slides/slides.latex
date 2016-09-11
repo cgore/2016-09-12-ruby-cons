@@ -55,8 +55,28 @@
 \usepackage{tikz}
 
 \usetikzlibrary{chains,matrix,positioning,shapes,shadows,arrows,arrows.meta}
+
 \tikzstyle{arrow} = [thick,->,>=stealth]
 \tikzstyle{roundangle} = [rectangle, rounded corners, text centered, draw=black, fill=blue!10]
+\tikzstyle{cons} = [
+  rectangle split,
+  rectangle split horizontal,
+  rectangle split parts = 2,
+  rounded corners,
+  draw=black,
+  fill=white,
+]
+\newcommand{\carcdr}[1]{\node (#1) [cons] {car \nodepart{second} cdr};}
+\newcommand{\dottedcons}[1]{\node (#1) [cons] {. \nodepart{second} .};}
+\newcommand{\dottedconsX}[2]{\node (#1) [cons,#2] {. \nodepart{second} .};}
+\newcommand{\dottedconsB}[2]{\dottedconsX{#1}{below of=#2}}
+\newcommand{\dottedconsLB}[2]{\dottedconsX{#1}{below left of = #2}}
+\newcommand{\dottedconsRB}[2]{\dottedconsX{#1}{below right of = #2}}
+\newcommand{\roundangle}[2]{\node (#1) [roundangle] {#2};}
+\newcommand{\roundangleX}[3]{\node (#1) [roundangle,#3] {#2};}
+\newcommand{\carline}[2]{\draw [arrow] (#1.one south) -- (#2);}
+\newcommand{\carlineX}[3]{\draw [arrow,#3] (#1.one south) -- (#2);}
+\newcommand{\cdrline}[2]{\draw [arrow] (#1.two south) -- (#2);}
 
 \usepackage{semcolor,slidesec}
 \input{seminar.bug}
@@ -268,9 +288,9 @@ c.map {|i| i*2} # Cons.list 2,4,6,8,10
         row sep = 1em,
         column sep = 3.5em
       ] {
-        \node (a) [roundangle] {Oranges}; &
-        \node (b) [roundangle] {Apples}; &
-        \node (c) [roundangle] {Bananas}; &
+        \roundangle{a}{Orange} &
+        \roundangle{b}{Apple} &
+        \roundangle{c}{Banana} &
         \node (d) {...}; \\
       };
       \draw [arrow] (a) -- node[above] {next} (b);
@@ -298,6 +318,102 @@ end
   \h{Well, they don't work like that at all in Lisp.}
 
   \fullSlideImage{mccarthy.eps}
+\end{slide}
+
+
+
+\begin{slide}
+  \h{Lisp uses conses instead.\\
+    The data isn't in the cell, it's two pointers.}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix [
+        row sep = 2em,
+        column sep = 2em
+      ] {
+        \carcdr{a} &
+        \carcdr{b} &
+        \carcdr{c} &
+        \node (d) {...}; \\
+        \roundangle{a_data}{Orange}; &
+        \roundangle{b_data}{Apple}; &
+        \roundangle{c_data}{Banana}; &
+        \node (d_data) {...}; \\
+      };
+      \draw [arrow] (a.one south) -- (a_data);
+      \draw [arrow] (b.one south) -- (b_data);
+      \draw [arrow] (c.one south) -- (c_data);
+      \draw [arrow] (a) -- (b);
+      \draw [arrow] (b) -- (c);
+      \draw [arrow] (c) -- (d);
+    \end{tikzpicture}
+  \end{center}
+\end{slide}
+
+
+\begin{slide}
+  \h{Say hello to the IBM Type 704\\
+    \texttt{CAR}: Contents of the Address Register\\
+    \texttt{CDR}: Contents of the Data Register}
+
+  \fullSlideImage{IBM-704.eps}
+\end{slide}
+
+\begin{slide}
+  \h{Why two pointers?\\
+    Because then you can do this:}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \dottedcons{a}
+
+      \dottedconsLB{b}{a}
+      \dottedconsRB{c}{a}
+      \carline{a}{b}
+      \cdrline{a}{c}
+
+      \dottedconsLB{d}{b}
+      \dottedconsB{e}{b}
+      \dottedconsB{f}{c}
+      \dottedconsRB{g}{c}
+      \carline{b}{d}
+      \cdrline{b}{e}
+      \carline{c}{f}
+      \cdrline{c}{g}
+
+      \draw [arrow] (d.one north) to [bend left] (a.west);
+      \draw [arrow] (d.two south) to (e.west);
+      \draw [arrow] (e.east) to (f.west);
+      \draw [arrow] (e.one south) to [out=-135, in=-45, looseness=5] (e.two south);
+      \draw [arrow] (f.east) to (g.one south);
+      \draw [arrow] (f.one south) to [out=-135, in=-45, looseness=5] (f.two south);
+      \draw [arrow] (g.two north) to [bend right] (a.east);
+    \end{tikzpicture}
+  \end{center}
+\end{slide}
+
+
+\begin{slide}
+  \h{Sometimes, exploring your data structures should be an adventure!}
+  
+  \fullSlideImage{twisty-passages.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{We can easily do \texttt{Cons} in Ruby}
+
+  \begin{lstlisting}
+class Cons
+  attr_accessor :car, :cdr
+  def initialize car, cdr
+    @car, @cdr = car, cdr
+    ...
+  end
+  ...
+end
+  \end{lstlisting}
 \end{slide}
 
 
