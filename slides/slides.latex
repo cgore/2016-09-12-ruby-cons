@@ -362,6 +362,13 @@ end
 
 
 \begin{slide}
+  \h{For similar reasons, every Linux box thinks your on one of these:}
+
+  \fullSlideImage{vt100.eps}
+\end{slide}
+
+
+\begin{slide}
   \h{Why two pointers?\\
     Because you can make ring buffers.}
 
