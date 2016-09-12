@@ -360,6 +360,66 @@ end
   \fullSlideImage{IBM-704.eps}
 \end{slide}
 
+
+\begin{slide}
+  \h{Why two pointers?\\
+    Because you can make alists.}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix [
+        row sep = 1em,
+        column sep = 1em
+      ] {
+        \dottedcons{a}; & \dottedcons{ac}; & \roundangle{aa}{A}; & \roundangle{ad}{Apple}; \\
+        \dottedcons{b}; & \dottedcons{bc}; & \roundangle{ba}{B}; & \roundangle{bd}{Ball}; \\
+        \dottedcons{c}; & \dottedcons{cc}; & \roundangle{ca}{C}; & \roundangle{cd}{Cat}; \\
+        \dottedcons{d}; & \dottedcons{dc}; & \roundangle{da}{D}; & \roundangle{dd}{Dog}; \\
+        \dottedcons{e}; & \dottedcons{ec}; & \roundangle{ea}{E}; & \roundangle{ed}{Elephant}; \\
+        \node (the_end) {\texttt{NIL}}; \\
+      };
+      \draw [arrow] (a.two south) to (b);
+      \draw [arrow] (b.two south) to (c);
+      \draw [arrow] (c.two south) to (d);
+      \draw [arrow] (d.two south) to (e);
+      \draw [arrow] (e.two south) to (the_end);
+
+      \draw [blue,arrow] (a.one north) to [out=90] (ac);
+      \draw [blue,arrow] (b.one north) to [out=90] (bc);
+      \draw [blue,arrow] (c.one north) to [out=90] (cc);
+      \draw [blue,arrow] (d.one north) to [out=90] (dc);
+      \draw [blue,arrow] (e.one north) to [out=90] (ec);
+      
+      \draw [green,arrow] (ac.two north) to [out=30, in=150] (ad);
+      \draw [green,arrow] (bc.two north) to [out=30, in=150] (bd);
+      \draw [green,arrow] (cc.two north) to [out=30, in=150] (cd);
+      \draw [green,arrow] (dc.two north) to [out=30, in=150] (dd);
+      \draw [green,arrow] (ec.two north) to [out=30, in=150] (ed);
+
+      \draw [purple,arrow] (ac.one south) to [out=-30, in=-150] (aa);
+      \draw [purple,arrow] (bc.one south) to [out=-30, in=-150] (ba);
+      \draw [purple,arrow] (cc.one south) to [out=-30, in=-150] (ca);
+      \draw [purple,arrow] (dc.one south) to [out=-30, in=-150] (da);
+      \draw [purple,arrow] (ec.one south) to [out=-30, in=-150] (ea);
+    \end{tikzpicture}
+  \end{center}
+\end{slide}
+
+
+\begin{slide}
+  \h{Alists, \textit{association lists}, are how Lisp historically would create
+    things we'd typically use hash maps for today.}
+
+  \begin{lstlisting}[language=Lisp]
+'((A . Apple)
+  (B . Ball)
+  (C . Cat)
+  (D . Dog)
+  (E . Elephant))
+  \end{lstlisting}
+\end{slide}
+
+
 \begin{slide}
   \h{Why two pointers?\\
     Because then you can do this:}
