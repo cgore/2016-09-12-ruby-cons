@@ -359,9 +359,9 @@ end
         \carcdr{b} &
         \carcdr{c} &
         \node (d) {...}; \\
-        \roundangle{a_data}{Orange}; &
-        \roundangle{b_data}{Apple}; &
-        \roundangle{c_data}{Banana}; &
+        \roundangle{a_data}{Apple}; &
+        \roundangle{b_data}{Ball}; &
+        \roundangle{c_data}{Cat}; &
         \node (d_data) {...}; \\
       };
       \draw [arrow] (a.one south) -- (a_data);
