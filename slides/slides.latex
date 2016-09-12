@@ -210,10 +210,12 @@
   \item My own super-awesome programming language, Teepee \textit{(but it's not that awesome just yet)}
   \item Common Lisp
   \item Ruby
+  \item C
   \item Clojure
-  \item[] .
-  \item[] .
-  \item[] . \setcounter{enumi}{998}
+  \item Python
+  \item[]
+    \textellipsis
+    \setcounter{enumi}{998}
   \item Java
   \end{enumerate}
 \end{slide}
