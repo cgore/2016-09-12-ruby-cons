@@ -363,6 +363,39 @@ end
 
 \begin{slide}
   \h{Why two pointers?\\
+    Because you can make ring buffers.}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix [
+        row sep = 1em,
+        column sep = 1em
+      ] {
+        \dottedcons{a}; & \roundangle{aa}{Apple}; \\
+        \dottedcons{b}; & \roundangle{ba}{Ball}; \\
+        \dottedcons{c}; & \roundangle{ca}{Cat}; \\
+        \dottedcons{d}; & \roundangle{da}{Dog}; \\
+        \dottedcons{e}; & \roundangle{ea}{Elephant}; \\
+      };
+      \draw [arrow] (a.two south) to (b);
+      \draw [arrow] (b.two south) to (c);
+      \draw [arrow] (c.two south) to (d);
+      \draw [arrow] (d.two south) to (e);
+
+      \draw [red,arrow] (e.two south) to [out=-90, in=180, looseness=1] (a);
+
+      \draw [blue,arrow] (a.one north) to [out=90] (aa);
+      \draw [blue,arrow] (b.one north) to [out=90] (ba);
+      \draw [blue,arrow] (c.one north) to [out=90] (ca);
+      \draw [blue,arrow] (d.one north) to [out=90] (da);
+      \draw [blue,arrow] (e.one north) to [out=90] (ea);
+    \end{tikzpicture}
+  \end{center}
+\end{slide}
+
+
+\begin{slide}
+  \h{Why two pointers?\\
     Because you can make alists.}
 
   \begin{center}
