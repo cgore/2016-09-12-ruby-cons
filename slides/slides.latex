@@ -210,6 +210,7 @@
   \item My own super-awesome programming language, Teepee \textit{(but it's not that awesome just yet)}
   \item Common Lisp
   \item Ruby
+  \item Clojure
   \item[] .
   \item[] .
   \item[] . \setcounter{enumi}{998}
@@ -266,7 +267,15 @@ a.map {|i| i*2} # [2,4,6,8,10]
 
 
 \begin{slide}
-  \h{And I'm adding a really nice Cons gem!}
+  \h{I'm wanting to add lisp-style lists to my language.
+    \textit{(There's no lists or arrays or anything like that yet.)}}
+
+  \fullSlideImage{flint-knife.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{It's written in Ruby, so I'm writing a Cons gem!}
 
 \begin{lstlisting}
 require 'cons'
@@ -276,6 +285,20 @@ c.length # 5
 c.first # 1
 c.map {|i| i*2} # Cons.list 2,4,6,8,10
 \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Once the gem is complete, I can then use it in the language's implementation.}
+
+  \fullSlideImage{shave-that-yak.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{Just remember, yak shaving is only a bad thing if you are talking to a manager.}
+
+  \fullSlideImage{engineers-boat.eps}
 \end{slide}
 
 
@@ -403,6 +426,53 @@ end
 
 \begin{slide}
   \h{Why two pointers?\\
+    Because you can make doubly-linked lists.}
+
+  \begin{center}
+    \begin{tikzpicture}
+      \matrix [
+        row sep = 1em,
+        column sep = 1em
+      ] {
+        \node(the_begin) {\texttt{NIL}}; \\
+        \dottedcons{a}; & \dottedcons{al}; & \roundangle{av}{Apple}; \\
+        \dottedcons{b}; & \dottedcons{bl}; & \roundangle{bv}{Ball}; \\
+        \dottedcons{c}; & \dottedcons{cl}; & \roundangle{cv}{Cat}; \\
+        \dottedcons{d}; & \dottedcons{dl}; & \roundangle{dv}{Dog}; \\
+        \dottedcons{e}; & \dottedcons{el}; & \roundangle{ev}{Elephant}; \\
+        \node(the_end) {\texttt{NIL}}; \\
+      };
+
+      \draw [arrow] (a) to (al);
+      \draw [arrow] (b) to (bl);
+      \draw [arrow] (c) to (cl);
+      \draw [arrow] (d) to (dl);
+      \draw [arrow] (e) to (el);
+
+      \draw [purple,arrow] (al.two south) to (b);
+      \draw [purple,arrow] (bl.two south) to (c);
+      \draw [purple,arrow] (cl.two south) to (d);
+      \draw [purple,arrow] (dl.two south) to (e);
+      \draw [purple,arrow] (el.two south) to (the_end);
+
+      \draw [blue,arrow] (al) to (the_begin);
+      \draw [blue,arrow] (bl) to (a);
+      \draw [blue,arrow] (cl) to (b);
+      \draw [blue,arrow] (dl) to (c);
+      \draw [blue,arrow] (el) to (d);
+
+      \draw [arrow] (a.one north) to [out=45] (av.west);
+      \draw [arrow] (b.one north) to [out=45] (bv.west);
+      \draw [arrow] (c.one north) to [out=45] (cv.west);
+      \draw [arrow] (d.one north) to [out=45] (dv.west);
+      \draw [arrow] (e.one north) to [out=45] (ev.west);
+    \end{tikzpicture}
+  \end{center}
+\end{slide}
+
+
+\begin{slide}
+  \h{Why two pointers?\\
     Because you can make alists.}
 
   \begin{center}
@@ -502,6 +572,34 @@ end
 
 
 \begin{slide}
+  \h{Why do I want conses?}
+
+  \fullSlideImage{big-data.eps}
+\end{slide}
+
+
+\begin{slide}
+  \h{Big Data}
+
+  \begin{itemize}
+  \item There's no reason why the \texttt{car} or the \texttt{cdr} need to point
+    to local memory.
+  \item Why not point them to the hard drive?
+  \item Why not point them to S3?
+  \item Why not have something cool that points to local memory, or the hard
+    drive, or S3, at it's discretion?
+  \end{itemize}
+\end{slide}
+
+
+\begin{slide}
+  \h{Then we can have ninety-nine quintillion kitten pictures in a big list!}
+
+  \fullSlideImage{kittens.eps}
+\end{slide}
+
+
+\begin{slide}
   \h{We can easily do \texttt{Cons} in Ruby}
 
   \begin{lstlisting}
@@ -517,6 +615,109 @@ end
 \end{slide}
 
 
+\begin{slide}
+  \h{I've got a very basic implementation.}
+
+  \begin{lstlisting}
+require 'cons' # Yay gems!
+Cons.new 1, nil # Basic constructor
+Cons[1,nil] # Or use the brackets
+Cons[1] # nil is default
+Cons[1,Cons[2,Cons[3]]] # a linked list
+Cons.from_array [1,2,3] # from an array
+[1,2,3].to_cons # monkey patching
+  \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Comparisons, \texttt{car}, and \texttt{cdr}}
+  \begin{lstlisting}
+c = [1,2,3,4,5].to_cons
+c.length # 5, assumes a linked list
+d = [1,2,3,4,5].to_cons
+c == d # true, but they're not identical
+c.car # 1
+c.cdr.car # 2
+c.cdr.cdr.car # 3
+c.cdr.cdr.cdr.car # 4
+c.cdr.cdr.cdr.cdr.car # 5
+  \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Because sometimes English is easier:}
+
+  \begin{lstlisting}
+c = [1,2,3,4,5].to_cons
+c.first # 1
+c.second # 2
+c.third # 3
+c.fourth # 4
+c.fifth # 5
+  \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Umm, this is a thing?}
+
+  \begin{lstlisting}
+c = [1,2,3,4,5].to_cons
+c.car # 1
+c.cdar # 2
+c.cddar # 3
+c.cdddar # 4
+c.cddddar # What?  That's crazy talk!
+  \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{It's easy to get the \texttt{cdr}'s too.}
+
+  \begin{lstlisting}
+c = [1,2,3,4,5].to_cons
+c.cdr.to_a # 2,3,4,5]
+c.rest.to_a # [2,3,4,5]
+c.cddr.to_a # [3,4,5]
+c.cdddr.to_a # [4,5]
+c.cddddr.to_a # [5]
+  \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{You can easily make assignments.}
+
+  \begin{lstlisting}
+c = [1,2,3,4,5].to_cons
+c.car # 1
+c.car = "wow"
+c.car # "wow"
+c.cdar = "hey"
+c.cddar = "cool"
+c.to_a # ["wow","hey","cool",4,5]
+  \end{lstlisting}
+\end{slide}
+
+
+\begin{slide}
+  \h{Work in progress \textellipsis}
+
+  \begin{itemize}
+  \item Implement arbitrary \texttt{c*r} forms via \texttt{method\_missing}?
+    Maybe not?
+  \item Smarter pretty printer.
+  \item Lots of stuff for alists.
+  \item Lots of stuff for lists as sets.
+  \item Lots of other stuff from Common Lisp.
+  \item Go to the hard drive!
+  \item Go to S3!
+  \end{itemize}
+\end{slide}
+  
 \begin{slide}
   \SlideSection{Questions?}
 \end{slide}
