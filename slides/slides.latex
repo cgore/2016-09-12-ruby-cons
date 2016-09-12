@@ -434,13 +434,13 @@ end
         row sep = 1em,
         column sep = 1em
       ] {
-        \node(the_begin) {\texttt{NIL}}; \\
-        \dottedcons{a}; & \dottedcons{al}; & \roundangle{av}{Apple}; \\
-        \dottedcons{b}; & \dottedcons{bl}; & \roundangle{bv}{Ball}; \\
-        \dottedcons{c}; & \dottedcons{cl}; & \roundangle{cv}{Cat}; \\
-        \dottedcons{d}; & \dottedcons{dl}; & \roundangle{dv}{Dog}; \\
-        \dottedcons{e}; & \dottedcons{el}; & \roundangle{ev}{Elephant}; \\
-        \node(the_end) {\texttt{NIL}}; \\
+        & & \node(the_begin) {\texttt{NIL}}; \\
+        \roundangle{av}{Apple};    & \dottedcons{a}; & \dottedcons{al}; \\
+        \roundangle{bv}{Ball};     & \dottedcons{b}; & \dottedcons{bl}; \\
+        \roundangle{cv}{Cat};      & \dottedcons{c}; & \dottedcons{cl}; \\
+        \roundangle{dv}{Dog};      & \dottedcons{d}; & \dottedcons{dl}; \\
+        \roundangle{ev}{Elephant}; & \dottedcons{e}; & \dottedcons{el}; \\
+        & & \node(the_end) {\texttt{NIL}}; \\
       };
 
       \draw [arrow] (a) to (al);
@@ -455,17 +455,17 @@ end
       \draw [purple,arrow] (dl.two south) to (e);
       \draw [purple,arrow] (el.two south) to (the_end);
 
-      \draw [blue,arrow] (al) to (the_begin);
+      \draw [blue,arrow] (al.one north) to (the_begin);
       \draw [blue,arrow] (bl) to (a);
       \draw [blue,arrow] (cl) to (b);
       \draw [blue,arrow] (dl) to (c);
       \draw [blue,arrow] (el) to (d);
 
-      \draw [arrow] (a.one north) to [out=45] (av.west);
-      \draw [arrow] (b.one north) to [out=45] (bv.west);
-      \draw [arrow] (c.one north) to [out=45] (cv.west);
-      \draw [arrow] (d.one north) to [out=45] (dv.west);
-      \draw [arrow] (e.one north) to [out=45] (ev.west);
+      \draw [arrow] (a) to (av);
+      \draw [arrow] (b) to (bv);
+      \draw [arrow] (c) to (cv);
+      \draw [arrow] (d) to (dv);
+      \draw [arrow] (e) to (ev);
     \end{tikzpicture}
   \end{center}
 \end{slide}
